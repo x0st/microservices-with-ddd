@@ -24,7 +24,7 @@ final public class JsonResponse implements Response {
 
     @Override
     public String body() {
-        if (null == this.body) return null;
+        if (null == this.body) return "";
         return this.body.toJSONString();
     }
 

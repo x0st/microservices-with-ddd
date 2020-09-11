@@ -1,4 +1,4 @@
-package microservices.hr.infrastructure;
+package microservices.hr.infrastructure.util;
 
 final public class Safe {
     public static <T> T safe(SafeClosure<T> closure) {

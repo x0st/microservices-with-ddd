@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 import java.util.UUID;
 
+import microservices.hr.api.http.EmptyResponse;
 import microservices.hr.api.http.JsonResponse;
 import microservices.hr.api.http.Request;
 import microservices.hr.api.http.Response;
@@ -57,7 +58,7 @@ final public class CandidateController {
                 UUID.fromString(request.pathParam("uuid"))
         ));
 
-        return JsonResponse.ok();
+        return EmptyResponse.ok();
     }
 
     public Response hire(Request request) throws Exception {
@@ -65,7 +66,7 @@ final public class CandidateController {
                 UUID.fromString(request.pathParam("uuid"))
         ));
 
-        return JsonResponse.ok();
+        return EmptyResponse.ok();
     }
 
     public Response all(Request request) throws Exception {

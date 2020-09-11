@@ -11,3 +11,14 @@ services:
       MYSQL_DATABASE: 'hr'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
+
+  reception-database:
+    image: mysql:8.0.17
+    command: '--default-authentication-plugin=mysql_native_password --log_bin_trust_function_creators=1'
+    ports:
+    - 3307:3306
+    environment:
+      MYSQL_USER: 'user'
+      MYSQL_DATABASE: 'reception'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'

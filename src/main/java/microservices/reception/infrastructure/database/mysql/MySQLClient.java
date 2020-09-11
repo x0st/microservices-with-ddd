@@ -1,8 +1,8 @@
-package microservices.hr.infrastructure.database.mysql;
+package microservices.reception.infrastructure.database.mysql;
 
 import java.sql.DriverManager;
 
-import microservices.hr.infrastructure.util.Safe;
+import microservices.reception.infrastructure.util.Safe;
 
 final public class MySQLClient {
     private final String url;

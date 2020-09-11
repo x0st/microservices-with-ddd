@@ -1,9 +1,7 @@
-package microservices.hr.core.event;
+package microservices.reception.core.event;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-
-import microservices.hr.core.Logger;
 
 final public class EventBus {
     private final HashMap<Class, LinkedList<EventListener>> map = new HashMap<>(1024);

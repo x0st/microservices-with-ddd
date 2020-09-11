@@ -17,15 +17,15 @@ import microservices.hr.infrastructure.di.SharedModule;
 import microservices.hr.infrastructure.di.UseCaseModule;
 import microservices.hr.infrastructure.javalin.HandlerWrapper;
 
-final public class App {
+final public class WebApplication {
     private final Javalin app;
     private final Injector injector;
 
     public static void main(String[] args) {
-        new App().start();
+        new WebApplication().start();
     }
 
-    App() {
+    WebApplication() {
         app = Javalin.create();
         injector = Guice.createInjector(
                 new SharedModule(),

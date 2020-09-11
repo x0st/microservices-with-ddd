@@ -6,7 +6,6 @@ import java.util.List;
 import microservices.hr.domain.candidate.query.Candidate;
 import microservices.hr.domain.candidate.query.CandidatesQuery;
 import microservices.hr.infrastructure.database.mysql.MySQLClient;
-import microservices.hr.infrastructure.database.mysql.QueryBuilder;
 import microservices.hr.infrastructure.database.mysql.ResultSet;
 
 final public class CandidatesMySQLQuery implements CandidatesQuery {
@@ -23,7 +22,9 @@ final public class CandidatesMySQLQuery implements CandidatesQuery {
     public List<Candidate> records() {
         List<Candidate> records = new LinkedList<>();
 
-        ResultSet resultSet = new QueryBuilder(this.mySQLClient.connection())
+        ResultSet resultSet = mySQLClient
+                .connection()
+                .selectQuery()
                 .from("candidates AS candidate")
                 .select(
                         "candidate.id AS `candidate.id`",

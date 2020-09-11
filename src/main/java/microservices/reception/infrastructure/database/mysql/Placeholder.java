@@ -1,4 +1,4 @@
-package microservices.hr.infrastructure.database.mysql;
+package microservices.reception.infrastructure.database.mysql;
 
 interface Placeholder<T> {
     T expand();
