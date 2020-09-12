@@ -6,15 +6,13 @@ import microservices.reception.core.AggregateRoot;
 
 final public class Employee extends AggregateRoot {
     private UUID id;
-    private Integer age;
     private String firstName;
     private String lastName;
 
-    public Employee(UUID id, String firstName, String lastName, Integer age) {
+    public Employee(UUID id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
     }
 
     public String firstName() {
@@ -25,16 +23,12 @@ final public class Employee extends AggregateRoot {
         return lastName;
     }
 
-    public Integer age() {
-        return age;
-    }
-
     @Override
     public UUID id() {
         return id;
     }
 
     public static Employee add(UUID id, String firstName, String lastName) {
-        return new Employee(id, firstName, lastName, null);
+        return new Employee(id, firstName, lastName);
     }
 }

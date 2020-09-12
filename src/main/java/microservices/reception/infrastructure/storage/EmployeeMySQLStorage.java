@@ -48,8 +48,7 @@ final public class EmployeeMySQLStorage implements EmployeeRepository {
         Employee employee = new Employee(
                 resultSet.getUUID(1),
                 resultSet.getString(2),
-                resultSet.getString(3),
-                resultSet.getInt(4)
+                resultSet.getString(3)
         );
 
         this.records.add(employee.id());
@@ -65,20 +64,18 @@ final public class EmployeeMySQLStorage implements EmployeeRepository {
     }
 
     private void create(Employee employee, Connection connection) {
-        connection.preparedStatement("INSERT INTO `employees` (id, firstName, lastName, age) VALUES (?, ?, ?, ?)")
+        connection.preparedStatement("INSERT INTO `employees` (id, firstName, lastName) VALUES (?, ?, ?)")
                 .setUUID(1, employee.id())
                 .setString(2, employee.firstName())
                 .setString(3, employee.lastName())
-                .setInt(4, employee.age())
                 .withoutResult();
     }
 
     private void update(Employee employee, Connection connection) {
-        connection.preparedStatement("UPDATE `employees` SET firstName = ?, lastName = ?, age = ? WHERE id = ?")
+        connection.preparedStatement("UPDATE `employees` SET firstName = ?, lastName = ? WHERE id = ?")
                 .setString(1, employee.firstName())
                 .setString(2, employee.lastName())
-                .setInt(3, employee.age())
-                .setUUID(4, employee.id())
+                .setUUID(3, employee.id())
                 .withoutResult();
     }
 }
