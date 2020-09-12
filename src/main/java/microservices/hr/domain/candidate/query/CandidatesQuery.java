@@ -7,7 +7,7 @@ public interface CandidatesQuery {
 
     CandidatesQuery withFilters(Filters filters);
 
-    final static class Filters {
+    final public static class Filters {
         private Boolean hired;
         private Boolean invited;
         private String firstName;

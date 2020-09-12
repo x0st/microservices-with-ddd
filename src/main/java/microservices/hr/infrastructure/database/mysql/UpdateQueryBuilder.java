@@ -1,5 +1,6 @@
 package microservices.hr.infrastructure.database.mysql;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +24,11 @@ final public class UpdateQueryBuilder {
 
     public UpdateQueryBuilder whereIn(String left, String[] right) {
         this.wheres.add(new AndWhere(left, "in", new ValueArray(right)));
+        return this;
+    }
+
+    public UpdateQueryBuilder whereIn(String left, ArrayList<String> right) {
+        this.wheres.add(new AndWhere(left, "in", new ValueArray((String[]) right.toArray())));
         return this;
     }
 

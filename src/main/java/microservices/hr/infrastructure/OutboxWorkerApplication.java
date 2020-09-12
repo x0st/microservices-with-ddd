@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import microservices.hr.infrastructure.database.mysql.MySQLClient;
@@ -43,31 +44,33 @@ final public class OutboxWorkerApplication {
         new OutboxWorkerApplication(args).serve();
     }
 
-    public void serve() {
+    public void serve() throws Exception {
         while (true) {
             mySQL.connection().transaction((connection) -> {
-                int rowCounter = 0;
-                String[] ids = new String[10];
+                ArrayList<String> eventIdentifiers = new ArrayList<>(10);
 
+                // Take a batch of events from MySQL
                 ResultSet resultSet = connection
                         .preparedStatement("SELECT id, name, data FROM outbox WHERE processed = ? LIMIT 10 FOR UPDATE")
                         .setInt(1, 0)
                         .withResult();
 
+                // Send the events to Kafka
                 while (resultSet.next()) {
                     String id = resultSet.getString(1);
                     String topic = resultSet.getString(2);
                     String payload = resultSet.getString(3);
+                    eventIdentifiers.add(id);
 
                     kafkaProducer.send(new ProducerRecord<>(topic, payload));
-                    ids[rowCounter++] = id;
                 }
 
-                if (rowCounter > 0) {
+                // Mark the events as processed
+                if (!eventIdentifiers.isEmpty()) {
                     connection.updateQuery()
                             .update("outbox")
                             .set("processed", 1)
-                            .whereIn("id", ids)
+                            .whereIn("id", eventIdentifiers)
                             .toPreparedStatement()
                             .withoutResult();
                 }
