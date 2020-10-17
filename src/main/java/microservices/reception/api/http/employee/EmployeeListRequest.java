@@ -6,9 +6,9 @@ final public class EmployeeListRequest {
     private final String firstName;
     private final String lastName;
 
-    private EmployeeListRequest(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    EmployeeListRequest(Request request) {
+        this.firstName = request.queryParam("firstName");
+        this.lastName = request.queryParam("lastName");
     }
 
     public String firstName() {
@@ -17,12 +17,5 @@ final public class EmployeeListRequest {
 
     public String lastName() {
         return lastName;
-    }
-
-    public static EmployeeListRequest fromBase(Request request) {
-        return new EmployeeListRequest(
-                request.queryParam("firstName"),
-                request.queryParam("lastName")
-        );
     }
 }

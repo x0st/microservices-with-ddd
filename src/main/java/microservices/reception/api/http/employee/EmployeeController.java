@@ -22,7 +22,7 @@ final public class EmployeeController {
     }
 
     public Response list(Request baseRequest) {
-        EmployeeListRequest request = EmployeeListRequest.fromBase(baseRequest);
+        EmployeeListRequest request = new EmployeeListRequest(baseRequest);
 
         List<Employee> records = this.employeesQuery
                 .withFilters(

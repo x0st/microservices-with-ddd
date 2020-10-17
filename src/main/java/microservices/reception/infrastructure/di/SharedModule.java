@@ -12,17 +12,6 @@ import microservices.reception.infrastructure.database.mysql.MySQLClient;
 final public class SharedModule extends AbstractModule {
     @Provides
     @Singleton
-    GlobalEventHandlerMap provideGlobalEventHandlerMap(EmployeeRegisteredEventHandler employeeRegistered) {
-        GlobalEventHandlerMap workerRegistry;
-
-        workerRegistry = new GlobalEventHandlerMap();
-        workerRegistry.map("EmployeeRegistered", employeeRegistered);
-
-        return workerRegistry;
-    }
-
-    @Provides
-    @Singleton
     MySQLClient provideMySQLClient() {
         return new MySQLClient("127.0.0.1", 3307, "reception", "user", "password");
     }
